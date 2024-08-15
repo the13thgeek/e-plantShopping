@@ -20,6 +20,21 @@ function ProductList() {
         return itemCounter;
     }
 
+    const checkAdded = (name) => {
+        let ind = 0;
+        cart.forEach((item) => {
+            if(item.name === name) {
+                ind++;
+            }
+        });
+        if(ind > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+
     const plantsArray = [
         {
             category: "Air Purifying Plants",
@@ -264,10 +279,12 @@ const handlePlantsClick = (e) => {
 
   const handleAddToCart = (product) => {
     dispatch(addItem(product));
+
     setAddedToCart((prevState) => ({
         ...prevState,
         [product.name]: true,
     }));
+
   };
 
     return (
@@ -302,7 +319,9 @@ const handlePlantsClick = (e) => {
                                 <div className="product-title">{plant.name}</div>
                                 <p className="product-description">{plant.description}</p>
                                 <p className="product-price"><b>{plant.cost}</b></p>
-                                <button className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                <button className={checkAdded(plant.name) ? "product-button added-to-cart" : "product-button"} disabled={checkAdded(plant.name)} onClick={() => handleAddToCart(plant)}>
+                                    {checkAdded(plant.name) ? "Added to Cart" : "Add to Cart"}
+                                </button>
                             </div>
                         ) ) }
                     </div>
