@@ -1,2 +1,2 @@
 # coding-project-template
-# test commit
+# e-plantShopping Final Project
